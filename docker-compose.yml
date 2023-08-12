@@ -1,0 +1,252 @@
+version: '3.9'
+
+services:
+## Nitter
+  tailscale-nitter:
+    hostname: nitter
+    image: tailscale/tailscale
+    environment:
+      - TS_AUTH_KEY=${TS_AUTHKEY}
+      - TS_USERSPACE=true
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_SOCKET=/var/run/tailscale/tailscaled.sock
+      - TS_PERMIT_CERT_UID=caddy
+    volumes:
+      - nittervarlib:/var/lib/tailscale
+      - nittervarrun:/var/run/tailscale
+  nitter:
+    hostname: nitter-backend
+    image: zedeus/nitter:latest
+    volumes:
+      - './nitter/nitter.conf:/src/nitter.conf:ro'
+    links:
+      - redis
+    depends_on:
+      redis:
+        condition: service_healthy
+  caddy-nitter:
+    image: public.ecr.aws/docker/library/caddy:2.7
+    volumes:
+      - ./caddy/nitter.conf:/etc/caddy/Caddyfile:ro
+      - nittervarrun:/var/run/tailscale:ro
+    network_mode: 'service:tailscale-nitter'
+
+## Teddit
+  tailscale-teddit:
+    hostname: teddit
+    image: tailscale/tailscale
+    environment:
+      - TS_AUTH_KEY=${TS_AUTHKEY}
+      - TS_USERSPACE=true
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_SOCKET=/var/run/tailscale/tailscaled.sock
+      - TS_PERMIT_CERT_UID=caddy
+    volumes:
+      - tedditvarlib:/var/lib/tailscale
+      - tedditvarrun:/var/run/tailscale
+  teddit:
+    hostname: teddit-backend
+    image: teddit/teddit:latest
+    environment:
+      - DOMAIN=teddit.${TAILNET}
+      - USE_HELMET=true
+      - USE_HELMET_HSTS=true
+      - TRUST_PROXY=true
+      - REDIS_HOST=redis
+      - USE_COMPRESSION=false
+      - NONSSL_PORT=9090
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget" ,"--no-verbose", "--tries=1", "--spider", "http://localhost:9090/about"]
+  caddy-teddit:
+    image: public.ecr.aws/docker/library/caddy:2.7
+    volumes:
+      - ./caddy/teddit.conf:/etc/caddy/Caddyfile:ro
+      - tedditvarrun:/var/run/tailscale:ro
+    network_mode: 'service:tailscale-teddit'
+
+## Imgin
+  tailscale-imgin:
+    hostname: imgin
+    image: tailscale/tailscale
+    environment:
+      - TS_AUTH_KEY=${TS_AUTHKEY}
+      - TS_USERSPACE=true
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_SOCKET=/var/run/tailscale/tailscaled.sock
+      - TS_PERMIT_CERT_UID=caddy
+    volumes:
+      - imginvarlib:/var/lib/tailscale
+      - imginvarrun:/var/run/tailscale
+  imgin:
+    hostname: imgin-backend
+    build:
+      context: ./imgin/
+  caddy-imgin:
+    image: public.ecr.aws/docker/library/caddy:2.7
+    volumes:
+      - ./caddy/imgin.conf:/etc/caddy/Caddyfile:ro
+      - imginvarrun:/var/run/tailscale:ro
+    network_mode: 'service:tailscale-imgin'
+
+## Scribe
+  tailscale-scribe:
+    hostname: scribe
+    image: tailscale/tailscale
+    environment:
+      - TS_AUTH_KEY=${TS_AUTHKEY}
+      - TS_USERSPACE=true
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_SOCKET=/var/run/tailscale/tailscaled.sock
+      - TS_PERMIT_CERT_UID=caddy
+    volumes:
+      - scribevarlib:/var/lib/tailscale
+      - scribevarrun:/var/run/tailscale
+  scribe:
+    hostname: scribe-backend
+    build:
+      context: ./scribe/
+    environment:
+      - SCRIBE_PORT=8084
+      - SCRIBE_HOST=0.0.0.0
+  caddy-scribe:
+    image: public.ecr.aws/docker/library/caddy:2.7
+    volumes:
+      - ./caddy/scribe.conf:/etc/caddy/Caddyfile:ro
+      - scribevarrun:/var/run/tailscale:ro
+    network_mode: 'service:tailscale-scribe'
+
+## Searxng
+  tailscale-searxng:
+    hostname: searxng
+    image: tailscale/tailscale
+    environment:
+      - TS_AUTH_KEY=${TS_AUTHKEY}
+      - TS_USERSPACE=true
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_SOCKET=/var/run/tailscale/tailscaled.sock
+      - TS_PERMIT_CERT_UID=caddy
+    volumes:
+      - searxngvarlib:/var/lib/tailscale
+      - searxngvarrun:/var/run/tailscale
+  searxng:
+    hostname: searxng-backend
+    image: searxng/searxng
+    environment:
+      - BASE_URL=https://search.${TAILNET}
+      - SEARXNG_SECRET=${HMAC_KEY}
+      - INSTANCE_NAME=searxng
+      - BIND_ADDRESS=0.0.0.0:8086
+      - SEARXNG_REDIS_URL=redis://@redis:6379/0
+    volumes:
+      - ./searxng/settings.yml:/usr/local/searxng/searx/settings.yml:ro
+  caddy-searxng:
+    image: public.ecr.aws/docker/library/caddy:2.7
+    volumes:
+      - ./caddy/searxng.conf:/etc/caddy/Caddyfile:ro
+      - searxngvarrun:/var/run/tailscale:ro
+    network_mode: 'service:tailscale-searxng'
+
+## Invidious
+  tailscale-invidious:
+    hostname: invidious
+    image: tailscale/tailscale
+    environment:
+      - TS_AUTH_KEY=${TS_AUTHKEY}
+      - TS_USERSPACE=true
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_SOCKET=/var/run/tailscale/tailscaled.sock
+      - TS_PERMIT_CERT_UID=caddy
+    volumes:
+      - invidiousvarlib:/var/lib/tailscale
+      - invidiousvarrun:/var/run/tailscale
+  invidious:
+    hostname: invidious-backend
+    image: quay.io/invidious/invidious:latest
+    environment:
+      # Please read the following file for a comprehensive list of all available
+      # configuration options and their associated syntax:
+      # https://github.com/iv-org/invidious/blob/master/config/config.example.yml
+      INVIDIOUS_CONFIG: |
+        db:
+          dbname: ${POSTGRES_DB}
+          user: ${POSTGRES_USER}
+          password: ${POSTGRES_PASSWORD}
+          host: postgres
+          port: 5432
+        check_tables: true
+        domain: invidious.${TAILNET}
+        https_only: true
+        external_port: 443
+        use_quic: true
+        popular_enabled: false
+        registration_enabled: false
+        channel_threads: 2
+        feed_threads: 2
+        full_refresh: false
+        admins: ["admin"]
+        channel_refresh_interval: 15m
+        statistics_enabled: false
+        hmac_key: ${HMAC_KEY}
+    depends_on:
+      postgres:
+        condition: service_healthy
+  caddy-invidious:
+    image: public.ecr.aws/docker/library/caddy:2.7
+    volumes:
+      - ./caddy/invidious.conf:/etc/caddy/Caddyfile:ro
+      - invidiousvarrun:/var/run/tailscale:ro
+    network_mode: 'service:tailscale-invidious'
+
+##Support Services
+  redis:
+    image: public.ecr.aws/docker/library/redis:7
+    command: redis-server --save 60 1 --loglevel warning
+    volumes:
+      - redis:/data
+    healthcheck:
+      test: redis-cli ping
+  postgres:
+    container_name: postgres
+    image: public.ecr.aws/docker/library/postgres:14
+    volumes:
+      - postgres:/var/lib/postgresql/data
+      - ./invidious/config/sql:/config/sql
+      - ./invidious/docker/init-invidious-db.sh:/docker-entrypoint-initdb.d/init-invidious-db.sh
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+
+volumes:
+  #nitter volumes
+  nittervarlib:
+  nittervarrun:
+
+  #teddit volumes
+  tedditvarlib:
+  tedditvarrun:
+
+  #imgin volumes
+  imginvarlib:
+  imginvarrun:
+
+  #scribe volumes
+  scribevarlib:
+  scribevarrun:
+
+  #searxng volumes
+  searxngvarlib:
+  searxngvarrun:
+
+  #searxng volumes
+  invidiousvarlib:
+  invidiousvarrun:
+
+  #support volumes
+  redis:
+  postgres:
