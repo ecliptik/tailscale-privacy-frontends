@@ -3,16 +3,16 @@ Privacy Friendly Frontends With Tailscale
 
 ## Purpose
 
-This is a [Privacy Friendly Frontend](https://www.privacytools.io/privacy-frontends) Docker Compose Stack made up of the following frontends,
+A [Privacy Friendly](https://www.privacyguides.org/en/frontends/) Docker Compose stack with the following frontends,
 
-- [Nitter](https://github.com/zedeus/nitter) - Replaces Twitter
-- [Teddit](https://github.com/teddit-net/teddit) - Repleaces Reddit
-- [Imgin](https://git.voidnet.tech/kev/imgin.git) - Replaces Imgur
-- [Scribe](https://git.sr.ht/~edwardloveall/scribe) - Replaces Medium
-- [SearXNG](https://github.com/searxng/searxng) - Replaces Google
-- [Invidiuos](https://github.com/iv-org/invidious) - Replaces YouTube
+- [Nitter](https://github.com/zedeus/nitter) - Twitter
+- [Teddit](https://github.com/teddit-net/teddit) - Reddit
+- [Imgin](https://git.voidnet.tech/kev/imgin.git) - Imgur
+- [Scribe](https://git.sr.ht/~edwardloveall/scribe) - Medium
+- [SearXNG](https://github.com/searxng/searxng) - Google
+- [Invidiuos](https://github.com/iv-org/invidious) - YouTube
 
-These frontends are exposed via [Tailscale](https://tailscale.com/) and only available to devices authrorized on to [Tailnet](https://tailscale.com/kb/1136/tailnet/?q=tailnet).
+Frontends are exposed via [Tailscale](https://tailscale.com/) and only available to devices authorized on a [Tailnet](https://tailscale.com/kb/1136/tailnet/?q=tailnet).
 
 All frontends are secured over `https` with [Caddy](https://caddyserver.com/).
 
@@ -30,22 +30,22 @@ All frontends are secured over `https` with [Caddy](https://caddyserver.com/).
 ## Configuration
 
 Tailscale Configuration
-1. [Enable HTTPS](https://tailscale.com/kb/1153/enabling-https/) on your Tailnet
-2. Generate a reusable [Reusable Auth Key](https://tailscale.com/kb/1085/auth-keys/?q=authkey)¬for your Tailnet
-3. Note your [Tailnet Name](https://tailscale.com/kb/1217/tailnet-name/)
+1. [Enable HTTPS](https://tailscale.com/kb/1153/enabling-https/)
+2. [Reusable Auth Key](https://tailscale.com/kb/1085/auth-keys/?q=authkey)
+3. [Tailnet Name](https://tailscale.com/kb/1217/tailnet-name/)
 
 Privacy Stack Configuration
 1. Copy `.env.example` to `.env`
-2. Update the `TS_AUTHKEY`, `TAILNET` variables from above in `.env`
-3. [Generate a random HMAC Key](https://www.random.org/passwords/) for `HMAC_KEY` in `.env`
+2. Update `TS_AUTHKEY`, `TAILNET` variables in `.env`
+3. [Generate random key](https://www.random.org/passwords/) for `HMAC_KEY` in `.env`
 
 ## Running the Stack
 
-Run the stack with the `start.sh` script.
+Run with the `start.sh` script.
 
 This script will update `TS_CHANGEME` and `HMACKEY_CHANGEME` in various configurations from the variables in `.env`.
 
-Example output of `start.sh`
+Example output of `start.sh`,
 
 ```
 ~/privacy-stack$ ./start.sh
@@ -82,6 +82,17 @@ The [Redirector Plugin](https://github.com/einaregilsson/Redirector) can modify 
 For example any links that go to twitter.com will automatically redirect to https://nitter.tailfe8c.ts.net, passing along the rest of the URL so any links transparency show up in the target privacy frontend.
 
 The `redirector` directory contains an example Redirector configuration file to use.
+
+## FAQ
+
+Q: Why?
+A: See [Privacy Guide to Frontends](https://www.privacyguides.org/en/frontends/)
+
+Q: Why not use publicly available frontends?
+A: Self-hosting your own frontends can improve performance and gives more control over frontend setup and configuration.
+
+Q: Doesn't running these yourself make you more visible?
+A: This stack can be run on a small VPS (tested on a t4.medium) to provide an added layer of anonymonity. Layering in a VPN can also help mix traffic.
 
 ## Additional Details
 
