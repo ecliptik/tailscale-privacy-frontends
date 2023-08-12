@@ -1,0 +1,73 @@
+use_default_settings: true
+
+enabled_plugins:
+  - 'Tracker URL remover'
+  - 'Hostname replace'  # see hostname_replace configuration below
+  - 'Vim-like hotkeys'
+  - 'Hash plugin'
+  - 'Search on category select'
+  - 'Self Informations'
+  - 'Ahmia blacklist'
+  - 'Open Access DOI rewrite'
+
+hostname_replace:
+  '(.*\.)?youtube\.com$': 'invidious.TS_CHANGEME'
+  '(.*\.)?youtu\.be$': 'invidious.TS_CHANGEME'
+  '(.*\.)?reddit\.com$': 'teddit.TS_CHANGEME'
+  '(.*\.)?redd\.it$': 'teddit.TS_CHANGEME'
+  '(www\.)?twitter\.com$': 'nitter.TS_CHANGEME'
+  '(.*\.)?imgur\.com$': 'imgin.TS_CHANGEME'
+  '(.*\.)?medium\.com$': 'scribe.TS_CHANGEME'
+#   # to remove matching host names from result list, set value to false
+#   'spam\.example\.com': false
+
+engines:
+  - name: google
+    engine: google
+    shortcut: go
+    # see https://docs.searxng.org/src/searx.engines.google.html#module-searx.engines.google
+    use_mobile_ui: false
+
+  - name: duckduckgo
+    engine: duckduckgo
+    shortcut: ddg
+
+  - name: duckduckgo images
+    engine: duckduckgo_images
+    shortcut: ddi
+    timeout: 3.0
+
+  - name: duckduckgo weather
+    engine: duckduckgo_weather
+    shortcut: ddw
+
+  - name: bing
+    engine: bing
+    shortcut: bi
+
+  - name: bing images
+    engine: bing_images
+    shortcut: bii
+
+  - name: bing news
+    engine: bing_news
+    shortcut: bin
+
+  - name: bing videos
+    engine: bing_videos
+    shortcut: biv
+
+  - name: wikipedia
+    engine: wikipedia
+    shortcut: wp
+    base_url: 'https://{language}.wikipedia.org/'
+
+doi_resolvers:
+  oadoi.org: 'https://oadoi.org/'
+  doi.org: 'https://doi.org/'
+  doai.io: 'https://dissem.in/'
+  sci-hub.se: 'https://sci-hub.se/'
+  sci-hub.st: 'https://sci-hub.st/'
+  sci-hub.ru: 'https://sci-hub.ru/'
+
+default_doi_resolver: 'oadoi.org'
