@@ -85,14 +85,17 @@ The `redirector` directory contains an example Redirector configuration file to 
 
 ## FAQ
 
-- **Q:** *Why?*
-- **A:** See [Privacy Guide to Frontends](https://www.privacyguides.org/en/frontends/)
+**Q: Why?**
 
-- **Q:** W*hy not use publicly available frontends?*
-- **A:** Self-hosting your own frontends can improve performance and gives more control over frontend setup and configuration.
+**A:** See [Privacy Guide to Frontends](https://www.privacyguides.org/en/frontends/)
 
-- **Q:** *Doesn't running these yourself make you more visible?*
-- **A:** This stack can be run on a small VPS (tested on a t4.medium) to provide an added layer of anonymonity. Layering in a VPN can also help mix traffic.
+**Q: Why not use publicly available frontends?**
+
+**A:** Self-hosting your own frontends can improve performance and gives more control over frontend setup and configuration.
+
+**Q: Doesn't running these yourself make you more visible?**
+
+**A:** This stack can be run on a small VPS (tested on a t4.medium) to provide an added layer of anonymonity. Layering in a VPN can also help mix traffic.
 
 ## Additional Details
 
