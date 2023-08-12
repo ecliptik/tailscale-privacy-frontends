@@ -3,7 +3,7 @@ Privacy Friendly Frontends With Tailscale
 
 ## Purpose
 
-This is a [Privacy Friendly Frontend](https://www.privacytools.io/privacy-frontends) [Docker Compose Stack](https://docs.docker.com/compose/) made up of the following frontends,
+This is a [Privacy Friendly Frontend](https://www.privacytools.io/privacy-frontends) Docker Compose Stack made up of the following frontends,
 
 - [Nitter](https://github.com/zedeus/nitter) - Replaces Twitter
 - [Teddit](https://github.com/teddit-net/teddit) - Repleaces Reddit
@@ -12,7 +12,7 @@ This is a [Privacy Friendly Frontend](https://www.privacytools.io/privacy-fronte
 - [SearXNG](https://github.com/searxng/searxng) - Replaces Google
 - [Invidiuos](https://github.com/iv-org/invidious) - Replaces YouTube
 
-These frontends are then exposed via [Tailscale](https://tailscale.com/) and only available to devices authrorized on to [Tailnet](https://tailscale.com/kb/1136/tailnet/?q=tailnet).
+These frontends are exposed via [Tailscale](https://tailscale.com/) and only available to devices authrorized on to [Tailnet](https://tailscale.com/kb/1136/tailnet/?q=tailnet).
 
 All frontends are secured over `https` with [Caddy](https://caddyserver.com/).
 
