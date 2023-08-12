@@ -1,0 +1,91 @@
+{
+    "createdBy": "Redirector v3.5.3",
+    "createdAt": "2022-09-26T08:26:26.126Z",
+    "redirects": [
+        {
+            "description": "Redirect all twitter urls to Nitter",
+            "exampleUrl": "https://mobile.twitter.com/DuckDuckGo/status/1555524784984887297",
+            "exampleResult": "https://nitter.TS_CHANGEME/DuckDuckGo/status/1555524784984887297",
+            "error": null,
+            "includePattern": "https?://(?:www\\.|mobile\\.*)?twitter.com/(.*)",
+            "excludePattern": "",
+            "patternDesc": "Redirect all twitter urls to Nitter",
+            "redirectUrl": "https://nitter.TS_CHANGEME/$1",
+            "patternType": "R",
+            "processMatches": "noProcessing",
+            "disabled": false,
+            "grouped": false,
+            "appliesTo": [
+                "main_frame"
+            ]
+        },
+        {
+            "description": "Redirect all reddit urls to teddit",
+            "exampleUrl": "https://www.reddit.com/r/googlecloud/comments/vy8hx3/ama_with_cloud_pms_on_gcps_arm_release_this/",
+            "exampleResult": "https://teddit.TS_CHANGEME/r/googlecloud/comments/vy8hx3/ama_with_cloud_pms_on_gcps_arm_release_this/",
+            "error": null,
+            "includePattern": "https?://(?:www\\.|old\\.)?reddit.com/(.*)",
+            "excludePattern": "",
+            "patternDesc": "Redirect all reddit urls to teddit",
+            "redirectUrl": "https://teddit.TS_CHANGEME/$1",
+            "patternType": "R",
+            "processMatches": "noProcessing",
+            "disabled": false,
+            "grouped": false,
+            "appliesTo": [
+                "main_frame"
+            ]
+        },
+        {
+            "description": "Redirect all imgur urls to imgin",
+            "exampleUrl": "https://imgur.com/FNs9O.png",
+            "exampleResult": " https://imgin.TS_CHANGEME/FNs9O.png",
+            "error": null,
+            "includePattern": "https?://(?:i.stack\\.|www\\.)?imgur.com/(.*)",
+            "excludePattern": "",
+            "patternDesc": "Redirect all imgur urls to imgin",
+            "redirectUrl": " https://imgin.TS_CHANGEME/$1",
+            "patternType": "R",
+            "processMatches": "noProcessing",
+            "disabled": false,
+            "grouped": false,
+            "appliesTo": [
+                "main_frame"
+            ]
+        },
+        {
+            "description": "Redirect all medium urls to scribe",
+            "exampleUrl": "https://medium.com/interviewnoodle/limit-the-blast-radius-system-design-for-failures-series-51622562c35b",
+            "exampleResult": " https://scribe.TS_CHANGEME//interviewnoodle/limit-the-blast-radius-system-design-for-failures-series-51622562c35b",
+            "error": null,
+            "includePattern": "^https?://(?:.*\\.)*(?<!(link\\.|cdn\\-images\\-\\d+\\.))medium\\.com(/.*)?$",
+            "excludePattern": "",
+            "patternDesc": "Redirect all medium urls to scribe",
+            "redirectUrl": " https://scribe.TS_CHANGEME/$2",
+            "patternType": "R",
+            "processMatches": "noProcessing",
+            "disabled": false,
+            "grouped": false,
+            "appliesTo": [
+                "main_frame"
+            ]
+        },
+        {
+            "description": "Redirect all youtube urls to invidious",
+            "exampleUrl": "https://m.youtube.com/watch?v=JGpf6B8EvVY",
+            "exampleResult": " https://invidious.TS_CHANGEME/watch?v=JGpf6B8EvVY",
+            "error": null,
+            "includePattern": "https?://(?:www\\.|m\\.)?youtube.com/(.*)",
+            "excludePattern": "",
+            "patternDesc": "Redirect all youtube urls to invidious",
+            "redirectUrl": " https://invidious.TS_CHANGEME/$1",
+            "patternType": "R",
+            "processMatches": "noProcessing",
+            "disabled": false,
+            "grouped": false,
+            "appliesTo": [
+                "main_frame"
+            ]
+        }
+    ]
+}
