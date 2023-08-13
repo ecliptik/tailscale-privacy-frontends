@@ -106,7 +106,7 @@ The `redirector` directory contains an example Redirector configuration file to 
 
 **A:** The `varlib` volumes allow re-using of an existing Tailscale machine record between container start/stops. Without persisting outside of the container a new Tailscale machine is created every time with an number appended to it, eg `nitter-1`. The `varrun` volume shares the Tailscale socket with Caddy so [Caddy can manage Tailscale HTTPS certificates](https://tailscale.com/blog/caddy/). Instead of volumes, bind mounts could also be used.
 
-**Q: Configuration X makes this insecure, and X should be done instead.
+**Q: Configuration X makes this insecure, and X should be done instead.**
 
 **A:** Probably. This stack is focused on privacy and not security.
 
