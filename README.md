@@ -88,7 +88,7 @@ The `redirector` directory contains an example Redirector configuration file to 
 
 **Q: Why?**
 
-**A:** See [Privacy Guide to Frontends](https://www.privacyguides.org/en/frontends/)
+**A:** See [Privacy Guide to Frontends](https://www.privacyguides.org/en/frontends/) and [Privacy Frontends](https://www.privacytools.io/privacy-frontends)
 
 **Q: Why not use publicly available frontends?**
 
