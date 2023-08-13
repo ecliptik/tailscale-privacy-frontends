@@ -1,10 +1,11 @@
-# privacy-stack
+# tailscale-privacy-frontends
 Privacy Friendly Frontends With Tailscale
 
 ## Purpose
 
-A [Privacy Friendly](https://github.com/digitalblossom/alternative-frontends) Docker Compose stack with the following frontends,
+[Privacy Friendly Frontends](https://github.com/digitalblossom/alternative-frontends) with Tailscale in Docker Compose.
 
+List of frontends
 - [Nitter](https://github.com/zedeus/nitter) - Twitter
 - [Teddit](https://github.com/teddit-net/teddit) - Reddit
 - [Imgin](https://git.voidnet.tech/kev/imgin.git) - Imgur
@@ -96,6 +97,18 @@ The `redirector` directory contains an example Redirector configuration file to 
 **Q: Doesn't running these yourself make you more visible?**
 
 **A:** This stack can run on a small VPS (tested on a t4.medium) instance to provide an added layer of anonymonity. Layering in a VPN can also help mix traffic.
+
+**Q: Why are there so many containers?**
+
+**A:** Tailscale [Magic DNS](https://tailscale.com/kb/1081/magicdns/) does not currently support wildcard domains, and therefore each frontend needs it's own Tailscale machine so it's hbstname resolves the Tailnet. An alternative is a single hostname to proxy all frontends, but this becomes complicated as almost all frontends assume they are running in their own domain and do not handle relative URL changes easily.
+
+**Q: Why are there so many volumes?**
+
+**A:** The `varlib` volumes allow re-using of an existing Tailscale machine record between container start/stops. Without persisting outside of the container a new Tailscale machine is created every time with an number appended to it, eg `nitter-1`. The `varrun` volume shares the Tailscale socket with Caddy so [Caddy can manage Tailscale HTTPS certificates](https://tailscale.com/blog/caddy/). Instead of volumes, bind mounts could also be used.
+
+**Q: Configuration X makes this insecure, and X should be done instead.
+
+**A:** Probably. This stack is focused on privacy and not security.
 
 ## Additional Details
 
