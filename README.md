@@ -96,7 +96,7 @@ The `redirector` directory contains an example Redirector configuration file to 
 
 **Q: Doesn't running these yourself make you more visible?**
 
-**A:** This stack can run on a small VPS (tested on a t4.medium) instance to provide an added layer of anonymonity. Layering in a VPN can also help mix traffic.
+**A:** This stack can run on a small VPS (tested on a t3.medium) instance to provide an added layer of anonymonity. Layering in a VPN can also help mix traffic.
 
 **Q: Why are there so many containers?**
 
