@@ -3,7 +3,7 @@ Privacy Friendly Frontends With Tailscale
 
 ## Purpose
 
-A [Privacy Friendly](https://www.privacyguides.org/en/frontends/) Docker Compose stack with the following frontends,
+A [Privacy Friendly](https://github.com/digitalblossom/alternative-frontends) Docker Compose stack with the following frontends,
 
 - [Nitter](https://github.com/zedeus/nitter) - Twitter
 - [Teddit](https://github.com/teddit-net/teddit) - Reddit
