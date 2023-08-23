@@ -42,7 +42,7 @@ fi
 
 #Pull, build, and restart stack
 echo "Starting privacy-stack"
-if docker compose pull && docker compose build --no-cache; then
+if docker compose pull && docker compose build; then
   #Bring stack down if it's up, then start
   docker compose down
   docker compose up -d
