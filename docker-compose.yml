@@ -222,6 +222,20 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
 
+## Router
+  tailscale-router:
+    hostname: router
+    image: tailscale/tailscale
+    environment:
+      - TS_AUTH_KEY=${TS_AUTHKEY}
+      - TS_USERSPACE=true
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_SOCKET=/var/run/tailscale/tailscaled.sock
+      - TS_EXTRA_ARGS=--advertise-exit-node --advertise-routes=X.X.X.X/X
+    volumes:
+      - routervarlib:/var/lib/tailscale
+      - routervarrun:/var/run/tailscale
+
 volumes:
   #nitter volumes
   nittervarlib:
@@ -250,3 +264,7 @@ volumes:
   #support volumes
   redis:
   postgres:
+
+  #router volumes
+  routervarlib:
+  routervarrun:
