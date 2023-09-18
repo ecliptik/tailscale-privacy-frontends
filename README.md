@@ -76,6 +76,10 @@ For example, with a Tailnet name of `tailfe8c.ts.net`, the frontends are at thes
 - https://searxng.tailfe8c.ts.net
 - https://invidious.tailfe8c.ts.net
 
+## Exit Node
+
+`tailscale-router` is configured as an [Exit Node](https://tailscale.com/kb/1103/exit-nodes/) that a Tailscale client can send all traffic through. This can also act as a [subnet router](https://tailscale.com/kb/1019/subnets/) if `--advertise-routes=` is passed in `TS_EXTRA_ARGS` environment variable.
+
 ## Redirector Plugin
 
 The [Redirector Plugin](https://github.com/einaregilsson/Redirector) can modify a link to the upstream site to the appropriate privacy frontend, including all relevant URL information. This makes using a privacy frontend seamless and the default.

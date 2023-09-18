@@ -231,7 +231,7 @@ services:
       - TS_USERSPACE=true
       - TS_STATE_DIR=/var/lib/tailscale
       - TS_SOCKET=/var/run/tailscale/tailscaled.sock
-      - TS_EXTRA_ARGS=--advertise-exit-node --advertise-routes=X.X.X.X/X
+      - TS_EXTRA_ARGS=--advertise-exit-node
     volumes:
       - routervarlib:/var/lib/tailscale
       - routervarrun:/var/run/tailscale
